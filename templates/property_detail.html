@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <img src="{{ property.image_url }}" class="img-fluid rounded" alt="{{ property.title }}">
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>{{ property.title }}</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ property.location }}</p>
+                    <p><i class="fas fa-star"></i> {{ property.rating }}</p>
+                    <hr>
+                    <h4>${{ property.price }} / night</h4>
+                    
+                    {% if current_user.is_authenticated %}
+                    <form>
+                        <div class="mb-3">
+                            <label for="check_in" class="form-label">Check-in</label>
+                            <input type="date" class="form-control" id="check_in" name="check_in">
+                        </div>
+                        <div class="mb-3">
+                            <label for="check_out" class="form-label">Check-out</label>
+                            <input type="date" class="form-control" id="check_out" name="check_out">
+                        </div>
+                        <div class="mb-3">
+                            <label for="guests" class="form-label">Guests</label>
+                            <input type="number" class="form-control" id="guests" name="guests" min="1" value="1">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Book Now</button>
+                    </form>
+                    {% else %}
+                    <p>Please <a href="{{ url_for('login') }}">login</a> to book this property.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Description</h4>
+                    <p>{{ property.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>{{ current_user.username }}</h3>
+                    <p>{{ current_user.email }}</p>
+                    <a href="#" class="btn btn-outline-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="properties-tab" data-bs-toggle="tab" data-bs-target="#properties" type="button" role="tab">My Properties</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings" type="button" role="tab">My Bookings</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="properties" role="tabpanel">
+                    <div class="mt-3">
+                        {% if current_user.properties %}
+                            <div class="row">
+                                {% for property in current_user.properties %}
+                                <div class="col-md-6 mb-4">
+                                    <div class="card property-card">
+                                        <img src="{{ property.image_url }}" class="card-img-top" alt="{{ property.title }}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ property.title }}</h5>
+                                            <p class="location"><i class="fas fa-map-marker-alt"></i> {{ property.location }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="price">${{ property.price }} / night</p>
+                                                <p class="rating"><i class="fas fa-star"></i> {{ property.rating }}</p>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <a href="{{ url_for('property_detail', property_id=property.id) }}" class="btn btn-primary">View</a>
+                                                <a href="#" class="btn btn-outline-secondary">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info mt-3">
+                                You have no properties listed. <a href="{{ url_for('add_property') }}">Add one now!</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="bookings" role="tabpanel">
+                    <div class="mt-3">
+                        {% if current_user.bookings %}
+                            <div class="list-group">
+                                {% for booking in current_user.bookings %}
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ booking.property.title }}</h5>
+                                        <small class="text-muted">{{ booking.created_at.strftime('%Y-%m-%d') }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ booking.check_in.strftime('%Y-%m-%d') }} to {{ booking.check_out.strftime('%Y-%m-%d') }}</p>
+                                    <p class="mb-1">Guests: {{ booking.guests }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-primary">{{ booking.status }}</span>
+                                        <span class="fw-bold">${{ booking.total_price }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info mt-3">
+                                You have no bookings. <a href="{{ url_for('home') }}">Browse properties now!</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

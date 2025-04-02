@@ -1,0 +1,207 @@
+/* static/css/style.css */
+:root {
+    --primary-color: #FF5A5F;
+    --secondary-color: #00A699;
+    --text-color: #484848;
+    --light-gray: #F7F7F7;
+    --sidebar-width: 250px;
+}
+
+body {
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+    color: var(--text-color);
+    background-color: var(--light-gray);
+}
+
+/* Sidebar */
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    background: #fff;
+    color: var(--text-color);
+    transition: all 0.3s;
+    height: 100vh;
+    position: fixed;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.sidebar.active {
+    margin-left: -var(--sidebar-width);
+}
+
+.sidebar .sidebar-header {
+    padding: 20px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar .sidebar-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.sidebar ul li a {
+    padding: 15px 20px;
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar ul ul {
+    background: var(--light-gray);
+}
+
+.sidebar ul ul li a {
+    padding: 10px 40px;
+    font-size: 0.9em;
+}
+
+#content {
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    right: 0;
+    padding: 20px;
+}
+
+#content.active {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -var(--sidebar-width);
+    }
+    .sidebar.active {
+        margin-left: 0;
+    }
+    #content {
+        width: 100%;
+    }
+    #content.active {
+        width: calc(100% - var(--sidebar-width));
+    }
+}
+
+/* Button to toggle sidebar */
+#sidebarCollapse {
+    border: none;
+    background: transparent;
+    color: var(--primary-color);
+}
+
+/* Property cards */
+.property-card {
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.property-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.property-card .card-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.property-card .location {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.property-card .price {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.property-card .rating {
+    color: #FF9500;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.property-card .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.property-card .btn-primary:hover {
+    background-color: #E64046;
+    border-color: #E64046;
+}
+
+/* Featured properties */
+.property-card.featured {
+    position: relative;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    z-index: 10;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(255, 90, 95, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #E64046;
+    border-color: #E64046;
+}
+
+/* Nav tabs */
+.nav-tabs .nav-link {
+    color: var(--text-color);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
